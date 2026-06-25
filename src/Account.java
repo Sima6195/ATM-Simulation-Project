@@ -17,6 +17,24 @@ public class Account {
     public String getAccountType() { return accountType; }
     public double getBalance() { return balance; }
 
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
+
+    public void deposit(double amount) {
+        balance += amount;
+    }
+
+    public boolean withdraw(double amount) {
+        if (amount > balance) {
+            return false;
+        }
+
+        balance -= amount;
+        return true;
+    }
+
+
 //    JUST FOR TESTING
     public static void main(String[] args) {
 
