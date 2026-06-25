@@ -21,9 +21,9 @@ public class Account {
     public static void main(String[] args) {
 
         Account account1 = new Account("109087989", "11110", 500.00);
-        Account account2 = new Account("1002986511", "2222", 1000.00);
+        Account account2 = new Account("1002986511", "2222", 100.00);
         Account account3 = new Account("10975324", "3333", 250.00);
-        Account account4 = new Account("1009864", "44841", 750.00);
+        Account account4 = new Account("1009864", "44841", 0.00);
 
 
         System.out.println(account1.getAccountNumber() + " - " +
