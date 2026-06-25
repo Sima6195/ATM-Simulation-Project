@@ -1,5 +1,6 @@
-public class Account {
+import java.util.Scanner;
 
+public class Account {
     private String accountNumber;
     private String pin;
     private String accountType;
