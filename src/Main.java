@@ -8,10 +8,10 @@ public class Main {
 
         List<Account> accounts = new ArrayList<>();
 
-        accounts.add(new Account("tom","109087989", "11110", 500.00));
-        accounts.add(new Account("mom","1002986511", "2222", 100.00));
-        accounts.add(new Account("pom","10975324", "3333", 250.00));
-        accounts.add(new Account("kom","1009864", "44841", 0.00));
+        accounts.add(new Account("Dineo Makofane", "109087989", "11110", 500.00));
+        accounts.add(new Account("Nonjabula Phoswa", "1002986511", "2222", 1000.00));
+        accounts.add(new Account("Simamkele Mampondo", "10975324", "3333", 250.00));
+        accounts.add(new Account("Promise Kamanga", "1009864", "44841", 750.00));
 
         AuthenticationService auth = new AuthenticationService(accounts);
         Account activeAccount = null;
@@ -55,9 +55,8 @@ public class Main {
                         if (activeAccount == null) {
                             System.out.println("Login failed.");
                         } else {
-                            System.out.println("Login successful.");
+                            System.out.println("Welcome, " + activeAccount.getUserName() + "!");
                         }
-
                         break;
 
                     case 2:
