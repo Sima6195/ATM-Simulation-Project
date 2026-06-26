@@ -105,7 +105,7 @@ public class InputValidator {
         System.out.println(" INPUT VALIDATOR + ATM TEST STARTED ");
 
         // Create team account
-        Account account = new Account("12345678", "1234", 1000);
+        Account account = new Account("tom","12345678", "1234", 1000);
 
         System.out.println("Initial Balance: R" + account.getBalance());
 
