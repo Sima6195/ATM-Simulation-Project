@@ -1,6 +1,8 @@
 public class InputValidator {
 
 
+    // ACCOUNT NUMBER VALIDATION
+
     public static boolean isValidAccountNumber(String accNumber) {
 
         if (accNumber == null || accNumber.isEmpty()) {
@@ -9,12 +11,12 @@ public class InputValidator {
         }
 
         if (accNumber.length() < 5 || accNumber.length() > 12) {
-            System.out.println("Account number must be 5-12 digits.");
+            System.out.println("Account number must be between 5 and 12 digits.");
             return false;
         }
 
-        for (char c : accNumber.toCharArray()) {
-            if (!Character.isDigit(c)) {
+        for (int i = 0; i < accNumber.length(); i++) {
+            if (!Character.isDigit(accNumber.charAt(i))) {
                 System.out.println("Account number must contain only numbers.");
                 return false;
             }
@@ -28,20 +30,20 @@ public class InputValidator {
 
     public static boolean isValidPin(String pin) {
 
-        if (pin == null || pin.length() != 5) {
-            System.out.println("PIN must be exactly 5 digits.");
-            return false;
-        }
-// checks whether the pin contains only numbers
-
-        if (!pin.matches("[0-9]+")) {
-            System.out.println("PIN must contain only numbers.");
+        if (pin == null || pin.length() != 4) {
+            System.out.println("PIN must be exactly 4 digits.");
             return false;
         }
 
-        // Prevent weak PINs
-        if (pin.equals("0000") || pin.equals("1234") || pin.equals("1111")) {
-            System.out.println("PIN is too weak. Choose a stronger PIN.");
+        for (int i = 0; i < pin.length(); i++) {
+            if (!Character.isDigit(pin.charAt(i))) {
+                System.out.println("PIN must contain only numbers.");
+                return false;
+            }
+        }
+
+        if (pin.equals("0000") || pin.equals("1111") || pin.equals("1234")) {
+            System.out.println("PIN is too weak.");
             return false;
         }
 
@@ -49,28 +51,18 @@ public class InputValidator {
     }
 
 
-    // AMOUNT VALIDATION
+    // DEPOSIT VALIDATION
 
-    public static boolean isValidAmount(double amount) {
+    public static boolean isValidDeposit(double amount) {
 
-        if (amount <= 0) {
-            System.out.println("Transaction failed: Amount must be greater than 0.");
+        if (amount < 50) {
+            System.out.println("Minimum deposit amount is R50.");
             return false;
         }
 
-        if (amount < 10) {
-            System.out.println("Minimum transaction amount is R10.");
-            return false;
-        }
-
-        if (amount > 20000) {
-            System.out.println("Maximum transaction limit is R20 000.");
-            return false;
-        }
-
-        // prevent invalid floating precision issues
-        if (Math.round(amount * 100.0) != amount * 100.0) {
-            System.out.println("Invalid amount format (too many decimal places).");
+        // No cents allowed
+        if (amount != (int) amount) {
+            System.out.println("Deposit amount cannot contain cents.");
             return false;
         }
 
@@ -82,101 +74,117 @@ public class InputValidator {
 
     public static boolean canWithdraw(double amount, Account account) {
 
-        double balance = account.getBalance();
-
-        if (amount > balance) {
-            System.out.println("Transaction failed: Insufficient funds.");
+        if (amount < 40) {
+            System.out.println("Minimum withdrawal amount is R40.");
             return false;
         }
 
-        if (amount > 2000) {
-            System.out.println("Transaction failed: Daily withdrawal limit is R2000.");
+        if (amount > 3000) {
+            System.out.println("Maximum withdrawal amount is R3000.");
+            return false;
+        }
+
+        if (amount > account.getBalance()) {
+            System.out.println("Transaction failed: Insufficient funds.");
             return false;
         }
 
         return true;
     }
 
-
-    // TESTING SECTION (USES TEAM CODE)
+    // TESTING SECTION
 
     public static void main(String[] args) {
 
-        System.out.println(" INPUT VALIDATOR + ATM TEST STARTED ");
+        System.out.println("===== INPUT VALIDATOR TEST =====");
 
-        // Create team account
-        Account account = new Account("12345678", "1234", 1000);
-
-        System.out.println("Initial Balance: R" + account.getBalance());
+        Account account = new Account("12345678", "5678", 1000);
 
         DepositTransaction deposit = new DepositTransaction();
         WithdrawTransaction withdraw = new WithdrawTransaction();
 
+        System.out.println("\nStarting Balance: R" + account.getBalance());
 
-        //  VALID DEPOSIT
 
-        System.out.println(" Deposit R500");
+        // Deposit Tests
 
-        double amount1 = 500;
 
-        if (isValidAmount(amount1)) {
-            deposit.execute(account, amount1);
+        System.out.println("\nDeposit Test 1: R500");
+
+        if (isValidDeposit(500)) {
+            deposit.execute(account, 500);
+        }
+
+        System.out.println("Balance: R" + account.getBalance());
+
+        System.out.println("\nDeposit Test 2: R30");
+
+        if (isValidDeposit(30)) {
+            deposit.execute(account, 30);
+        }
+
+        System.out.println("Balance: R" + account.getBalance());
+
+        System.out.println("\nDeposit Test 3: R100.50");
+
+        if (isValidDeposit(100.50)) {
+            deposit.execute(account, 100.50);
         }
 
         System.out.println("Balance: R" + account.getBalance());
 
 
+        // Withdrawal Tests
 
-        //  INVALID DEPOSIT (LOW AMOUNT)
 
-        System.out.println(" Deposit R5");
+        System.out.println("\nWithdraw Test 1: R300");
 
-        double amount2 = 5;
+        if (canWithdraw(300, account)) {
+            withdraw.execute(account, 300);
+        }
 
-        if (isValidAmount(amount2)) {
-            deposit.execute(account, amount2);
+        System.out.println("Balance: R" + account.getBalance());
+
+        System.out.println("\nWithdraw Test 2: R20");
+
+        if (canWithdraw(20, account)) {
+            withdraw.execute(account, 20);
+        }
+
+        System.out.println("Balance: R" + account.getBalance());
+
+        System.out.println("\nWithdraw Test 3: R5000");
+
+        if (canWithdraw(5000, account)) {
+            withdraw.execute(account, 5000);
+        }
+
+        System.out.println("Balance: R" + account.getBalance());
+
+        System.out.println("\nWithdraw Test 4: R1500");
+
+        if (canWithdraw(1500, account)) {
+            withdraw.execute(account, 1500);
         }
 
         System.out.println("Balance: R" + account.getBalance());
 
 
-        //  VALID WITHDRAWAL
-
-        System.out.println(" Withdraw R300");
-
-        double amount3 = 300;
-
-        if (isValidAmount(amount3) && canWithdraw(amount3, account)) {
-            withdraw.execute(account, amount3);
-        }
-
-        System.out.println("Balance: R" + account.getBalance());
+        // Account Number Tests
 
 
-        //  OVER WITHDRAWAL
-
-        System.out.println("Withdraw R5000");
-
-        double amount4 = 5000;
-
-        if (isValidAmount(amount4) && canWithdraw(amount4, account)) {
-            withdraw.execute(account, amount4);
-        }
-
-        System.out.println("Balance: R" + account.getBalance());
+        System.out.println("\nAccount Number Test:");
+        System.out.println(isValidAccountNumber("12345678"));
+        System.out.println(isValidAccountNumber("ABC123"));
 
 
-        // WEAK PIN TEST
+        // PIN Tests
 
-        System.out.println("PIN ");
-        System.out.println(isValidPin("1234"));
-
-
-        // : VALID PIN
-
-        System.out.println(" PIN 5678");
+        System.out.println("\nPIN Test:");
         System.out.println(isValidPin("5678"));
+        System.out.println(isValidPin("1234"));
+        System.out.println(isValidPin("12A4"));
 
-
+        System.out.println("\n===== TEST COMPLETE =====");
     }
 }
