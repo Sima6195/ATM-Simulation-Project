@@ -20,7 +20,6 @@ public class Main {
 
         while (running) {
 
-            System.out.println("\n===== ATM MENU =====");
             System.out.println("1. Login");
             System.out.println("2. Check Balance");
             System.out.println("3. Deposit");
@@ -73,7 +72,7 @@ public class Main {
                     double depositAmount = scanner.nextDouble();
                     scanner.nextLine();
 
-                    if (InputValidator.isValidAmount(depositAmount)) {
+                    if (InputValidator.isValidDeposit(depositAmount)) {
 
                         DepositTransaction deposit = new DepositTransaction();
                         deposit.execute(activeAccount, depositAmount);
@@ -98,8 +97,8 @@ public class Main {
                     double withdrawAmount = scanner.nextDouble();
                     scanner.nextLine();
 
-                    if (InputValidator.isValidAmount(withdrawAmount) &&
-                            InputValidator.canWithdraw(withdrawAmount, activeAccount)) {
+
+                    if (InputValidator.canWithdraw(withdrawAmount, activeAccount)) {
 
                         WithdrawTransaction withdraw = new WithdrawTransaction();
                         boolean success = withdraw.execute(activeAccount, withdrawAmount);
@@ -131,7 +130,7 @@ public class Main {
 
                 case 6:
 
-                    System.out.println("Thank you for using the ATM.");
+                    System.out.println("Thank you and Enjoy.");
                     running = false;
                     break;
 
