@@ -8,8 +8,8 @@ public class InputValidator {
             return false;
         }
 
-        if (accNumber.length() < 8 || accNumber.length() > 12) {
-            System.out.println("Account number must be 8-12 digits.");
+        if (accNumber.length() < 5 || accNumber.length() > 12) {
+            System.out.println("Account number must be 5-12 digits.");
             return false;
         }
 
@@ -113,7 +113,7 @@ public class InputValidator {
         WithdrawTransaction withdraw = new WithdrawTransaction();
 
 
-        // TEST 1: VALID DEPOSIT
+        //  VALID DEPOSIT
 
         System.out.println(" Deposit R500");
 
@@ -127,7 +127,7 @@ public class InputValidator {
 
 
 
-        // TEST 2: INVALID DEPOSIT (LOW AMOUNT)
+        //  INVALID DEPOSIT (LOW AMOUNT)
 
         System.out.println(" Deposit R5");
 
@@ -140,7 +140,7 @@ public class InputValidator {
         System.out.println("Balance: R" + account.getBalance());
 
 
-        // TEST 3: VALID WITHDRAWAL
+        //  VALID WITHDRAWAL
 
         System.out.println(" Withdraw R300");
 
@@ -153,7 +153,7 @@ public class InputValidator {
         System.out.println("Balance: R" + account.getBalance());
 
 
-        // TEST 4: OVER WITHDRAWAL
+        //  OVER WITHDRAWAL
 
         System.out.println("Withdraw R5000");
 
@@ -166,15 +166,15 @@ public class InputValidator {
         System.out.println("Balance: R" + account.getBalance());
 
 
-        // TEST 5: WEAK PIN TEST
+        // WEAK PIN TEST
 
         System.out.println("PIN ");
         System.out.println(isValidPin("1234"));
 
 
-        // TEST 6: VALID PIN
+        // : VALID PIN
 
-        System.out.println("TEST 6: PIN 5678");
+        System.out.println(" PIN 5678");
         System.out.println(isValidPin("5678"));
 
 
