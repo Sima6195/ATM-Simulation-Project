@@ -1,5 +1,6 @@
-public class Account {
+import java.util.Scanner;
 
+public class Account {
     private String accountNumber;
     private String pin;
     private String accountType;
@@ -16,6 +17,20 @@ public class Account {
     public String getPin() { return pin; }
     public String getAccountType() { return accountType; }
     public double getBalance() { return balance; }
+
+    public void deposit(double amount) {
+        balance += amount;
+    }
+
+    public boolean withdraw(double amount) {
+        if (amount > balance) {
+            return false;
+        }
+
+        balance -= amount;
+        return true;
+    }
+
 
 //    JUST FOR TESTING
     public static void main(String[] args) {
