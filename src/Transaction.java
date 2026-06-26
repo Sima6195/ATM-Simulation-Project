@@ -10,7 +10,7 @@ public abstract class Transaction {
 
     public static void main(String[] args) {
 
-        Account account1 = new Account("109087989", "11110", 1500.00);
+        Account account1 = new Account("tom", "109087989", "11110", 500.00);
 
         System.out.println("=== INITIAL ACCOUNT DETAILS ===");
         System.out.println("Account Number: " + account1.getAccountNumber());

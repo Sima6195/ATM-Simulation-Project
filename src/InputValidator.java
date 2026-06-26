@@ -11,7 +11,11 @@ public class InputValidator {
         }
 
         if (accNumber.length() < 5 || accNumber.length() > 12) {
+<<<<<<< HEAD
             System.out.println("Account number must be between 5 and 12 digits.");
+=======
+            System.out.println("Account number must be 5-12 digits.");
+>>>>>>> 1bd3e7b78a4e9b7dac786da72fd02d88e757a705
             return false;
         }
 
@@ -30,8 +34,8 @@ public class InputValidator {
 
     public static boolean isValidPin(String pin) {
 
-        if (pin == null || pin.length() != 4) {
-            System.out.println("PIN must be exactly 4 digits.");
+        if (pin == null || pin.length() != 5) {
+            System.out.println("PIN must be exactly 5 digits.");
             return false;
         }
 
@@ -99,7 +103,14 @@ public class InputValidator {
 
         System.out.println("INPUT VALIDATOR TEST ");
 
+<<<<<<< HEAD
         Account account = new Account("12345678", "5678", 1000);
+=======
+        // Create team account
+        Account account = new Account("tom","12345678", "1234", 1000);
+
+        System.out.println("Initial Balance: R" + account.getBalance());
+>>>>>>> 1bd3e7b78a4e9b7dac786da72fd02d88e757a705
 
         DepositTransaction deposit = new DepositTransaction();
         WithdrawTransaction withdraw = new WithdrawTransaction();
