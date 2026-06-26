@@ -21,126 +21,185 @@ public class Main {
         while (running) {
 
             System.out.println("\n===== ATM MENU =====");
-            System.out.println("1. Login");
-            System.out.println("2. Check Balance");
-            System.out.println("3. Deposit");
-            System.out.println("4. Withdraw");
-            System.out.println("5. Logout");
-            System.out.println("6. Exit");
+
+            if (activeAccount == null) {
+                System.out.println("1. Login");
+                System.out.println("2. Deposit");
+                System.out.println("3. Exit");
+            } else {
+                System.out.println("1. Check Balance");
+                System.out.println("2. Deposit");
+                System.out.println("3. Withdraw");
+                System.out.println("4. Logout");
+                System.out.println("5. Exit");
+            }
             System.out.print("Enter your choice: ");
 
             int choice = scanner.nextInt();
             scanner.nextLine();
 
-            switch (choice) {
+            if (activeAccount == null) {
 
-                case 1:
+                switch (choice) {
 
-                    System.out.print("Enter Account Number: ");
-                    String accountNumber = scanner.nextLine();
+                    case 1:
 
-                    System.out.print("Enter PIN: ");
-                    String pin = scanner.nextLine();
+                        System.out.print("Enter Account Number: ");
+                        String accountNumber = scanner.nextLine();
 
-                    activeAccount = auth.login(accountNumber, pin);
+                        System.out.print("Enter PIN: ");
+                        String pin = scanner.nextLine();
 
-                    if (activeAccount == null) {
-                        System.out.println("Login failed.");
-                    } else {
-                        System.out.println("Login successful.");
-                    }
+                        activeAccount = auth.login(accountNumber, pin);
 
-                    break;
-
-                case 2:
-
-                    if (activeAccount == null) {
-                        System.out.println("Please login first.");
-                    } else {
-                        System.out.println("Balance: R" + activeAccount.getBalance());
-                    }
-
-                    break;
-
-                case 3:
-
-                    if (activeAccount == null) {
-                        System.out.println("Please login first.");
-                        break;
-                    }
-
-                    System.out.print("Enter amount to deposit: ");
-                    double depositAmount = scanner.nextDouble();
-                    scanner.nextLine();
-
-                    if (InputValidator.isValidAmount(depositAmount)) {
-
-                        DepositTransaction deposit = new DepositTransaction();
-                        deposit.execute(activeAccount, depositAmount);
-
-                        System.out.println("Deposit successful.");
-                        System.out.println("New Balance: R" + activeAccount.getBalance());
-
-                    } else {
-                        System.out.println("Invalid deposit amount.");
-                    }
-
-                    break;
-
-                case 4:
-
-                    if (activeAccount == null) {
-                        System.out.println("Please login first.");
-                        break;
-                    }
-
-                    System.out.print("Enter amount to withdraw: ");
-                    double withdrawAmount = scanner.nextDouble();
-                    scanner.nextLine();
-
-                    if (InputValidator.isValidAmount(withdrawAmount) &&
-                            InputValidator.canWithdraw(withdrawAmount, activeAccount)) {
-
-                        WithdrawTransaction withdraw = new WithdrawTransaction();
-                        boolean success = withdraw.execute(activeAccount, withdrawAmount);
-
-                        if (success) {
-                            System.out.println("Withdrawal successful.");
+                        if (activeAccount == null) {
+                            System.out.println("Login failed.");
                         } else {
-                            System.out.println("Withdrawal failed.");
+                            System.out.println("Login successful.");
                         }
 
-                        System.out.println("New Balance: R" + activeAccount.getBalance());
+                        break;
 
-                    } else {
-                        System.out.println("Withdrawal denied.");
-                    }
+                    case 2:
 
-                    break;
+                        System.out.print("Enter Account Number: ");
+                        String accNumber = scanner.nextLine();
 
-                case 5:
+                        Account selectedAccount = null;
 
-                    if (activeAccount != null) {
+                        for (Account acc : accounts) {
+                            if (acc.getAccountNumber().equals(accNumber)) {
+                                selectedAccount = acc;
+                                break;
+                            }
+                        }
+
+                        if (selectedAccount == null) {
+                            System.out.println("Account not found.");
+                            break;
+                        }
+
+                        System.out.print("Enter amount to deposit: ");
+                        double depositAmount = scanner.nextDouble();
+                        scanner.nextLine();
+
+                        if (InputValidator.isValidAmount(depositAmount)) {
+
+                            DepositTransaction deposit = new DepositTransaction();
+                            deposit.execute(selectedAccount, depositAmount);
+
+                            System.out.println("Deposit successful.");
+                            System.out.println("New Balance: R" + selectedAccount.getBalance());
+
+                        } else {
+                            System.out.println("Invalid deposit amount.");
+                        }
+
+                        break;
+
+                    case 3:
+
+                        System.out.println("Thank you for using the ATM.");
+                        running = false;
+                        break;
+
+                    default:
+
+                        System.out.println("Invalid choice.");
+                }
+
+            } else {
+
+                switch (choice) {
+
+                    case 1:
+
+                        System.out.println("Balance: R" + activeAccount.getBalance());
+                        break;
+
+                    case 2:
+
+                        System.out.print("Enter Account Number: ");
+                        String accNumber = scanner.nextLine();
+
+                        Account selectedAccount = null;
+
+                        for (Account acc : accounts) {
+                            if (acc.getAccountNumber().equals(accNumber)) {
+                                selectedAccount = acc;
+                                break;
+                            }
+                        }
+
+                        if (selectedAccount == null) {
+                            System.out.println("Account not found.");
+                            break;
+                        }
+
+                        System.out.print("Enter amount to deposit: ");
+                        double depositAmount = scanner.nextDouble();
+                        scanner.nextLine();
+
+                        if (InputValidator.isValidAmount(depositAmount)) {
+
+                            DepositTransaction deposit = new DepositTransaction();
+                            deposit.execute(selectedAccount, depositAmount);
+
+                            System.out.println("Deposit successful.");
+                            System.out.println("New Balance: R" + selectedAccount.getBalance());
+
+                        } else {
+                            System.out.println("Invalid deposit amount.");
+                        }
+
+                        break;
+
+                    case 3:
+
+                        System.out.print("Enter amount to withdraw: ");
+                        double withdrawAmount = scanner.nextDouble();
+                        scanner.nextLine();
+
+                        if (InputValidator.isValidAmount(withdrawAmount) &&
+                                InputValidator.canWithdraw(withdrawAmount, activeAccount)) {
+
+                            WithdrawTransaction withdraw = new WithdrawTransaction();
+                            boolean success = withdraw.execute(activeAccount, withdrawAmount);
+
+                            if (success) {
+                                System.out.println("Withdrawal successful.");
+                            } else {
+                                System.out.println("Withdrawal failed.");
+                            }
+
+                            System.out.println("New Balance: R" + activeAccount.getBalance());
+
+                        } else {
+                            System.out.println("Withdrawal denied.");
+                        }
+
+                        break;
+
+                    case 4:
+
                         auth.logout();
                         activeAccount = null;
-                    } else {
-                        System.out.println("No user is logged in.");
-                    }
+                        System.out.println("Logged out successfully.");
 
-                    break;
+                        break;
 
-                case 6:
+                    case 5:
 
-                    System.out.println("Thank you for using the ATM.");
-                    running = false;
-                    break;
+                        System.out.println("Thank you for using the ATM.");
+                        running = false;
 
-                default:
+                        break;
 
-                    System.out.println("Invalid choice.");
+                    default:
+
+                        System.out.println("Invalid choice.");
+                }
             }
         }
-
-        scanner.close();
     }
 }
