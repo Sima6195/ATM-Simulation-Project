@@ -8,8 +8,8 @@ public class InputValidator {
             return false;
         }
 
-        if (accNumber.length() < 8 || accNumber.length() > 12) {
-            System.out.println("Account number must be 8-12 digits.");
+        if (accNumber.length() < 5 || accNumber.length() > 12) {
+            System.out.println("Account number must be 5-12 digits.");
             return false;
         }
 
@@ -28,8 +28,8 @@ public class InputValidator {
 
     public static boolean isValidPin(String pin) {
 
-        if (pin == null || pin.length() != 4) {
-            System.out.println("PIN must be exactly 4 digits.");
+        if (pin == null || pin.length() != 5) {
+            System.out.println("PIN must be exactly 5 digits.");
             return false;
         }
 // checks whether the pin contains only numbers
