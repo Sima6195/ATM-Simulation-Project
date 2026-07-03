@@ -12,6 +12,8 @@ public class Main {
         accounts.add(new Account("Nonjabula Phoswa", "1002986511", "2222", 1000.00));
         accounts.add(new Account("Simamkele Mampondo", "10975324", "3333", 250.00));
         accounts.add(new Account("Promise Kamanga", "1009864", "44841", 750.00));
+        accounts.add(new Account("Millicent Mosia", "19348774", "40986", 70.00));
+
 
         AuthenticationService auth = new AuthenticationService(accounts);
         Account activeAccount = null;
