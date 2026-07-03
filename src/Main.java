@@ -30,8 +30,7 @@ public class Main {
                 System.out.println("1. Check Balance");
                 System.out.println("2. Deposit");
                 System.out.println("3. Withdraw");
-                System.out.println("4. Logout");
-                System.out.println("5. Exit");
+                System.out.println("4. Exit");
             }
             System.out.print("Enter your choice: ");
 
@@ -180,14 +179,6 @@ public class Main {
                         break;
 
                     case 4:
-
-                        auth.logout();
-                        activeAccount = null;
-                        System.out.println("Logged out successfully.");
-
-                        break;
-
-                    case 5:
 
                         System.out.println("Thank you for using the ATM.");
                         running = false;
