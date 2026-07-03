@@ -8,10 +8,10 @@ public class Main {
 
         List<Account> accounts = new ArrayList<>();
 
-        accounts.add(new Account("109087989", "11110", 500.00));
-        accounts.add(new Account("1002986511", "2222", 100.00));
-        accounts.add(new Account("10975324", "3333", 250.00));
-        accounts.add(new Account("1009864", "44841", 0.00));
+        accounts.add(new Account("tom","109087989", "11110", 500.00));
+        accounts.add(new Account("mom","1002986511", "2222", 100.00));
+        accounts.add(new Account("pom","10975324", "3333", 250.00));
+        accounts.add(new Account("kom","1009864", "44841", 0.00));
 
         AuthenticationService auth = new AuthenticationService(accounts);
         Account activeAccount = null;
