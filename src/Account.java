@@ -13,11 +13,26 @@ public class Account {
         this.accountType = "Savings";
         this.balance = balance;
     }
-    public String getUserName() { return userName; }
-    public String getAccountNumber() { return accountNumber; }
-    public String getPin() { return pin; }
-    public String getAccountType() { return accountType; }
-    public double getBalance() { return balance; }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public String getAccountNumber() {
+        return accountNumber;
+    }
+
+    public String getPin() {
+        return pin;
+    }
+
+    public String getAccountType() {
+        return accountType;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
 
     public void deposit(double amount) {
         balance += amount;
@@ -31,5 +46,4 @@ public class Account {
         balance -= amount;
         return true;
     }
-
 }
