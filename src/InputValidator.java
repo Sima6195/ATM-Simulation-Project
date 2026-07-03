@@ -9,7 +9,7 @@ public class InputValidator {
         }
 
         if (accNumber.length() < 5 || accNumber.length() > 12) {
-            System.out.println("Account number must be 5-12 digits.");
+            System.out.println("Account number must be between 5 and 12 digits.");
             return false;
         }
 
